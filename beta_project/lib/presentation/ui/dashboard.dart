@@ -6,6 +6,7 @@ import 'package:beta_project/domain/entities/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:beta_project/presentation/widget/loaders.dart';
+import 'package:beta_project/presentation/widget/power_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -169,128 +170,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      width: double.infinity,
-                                      height: _kHeight * 0.12,
-                                      margin: EdgeInsets.all(kSpacingXLarge),
-                                      decoration: BoxDecoration(
-                                        color: _themeData.disabledColor,
-                                        borderRadius: BorderRadius.circular(
-                                            kSpacingXLarge),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                FontAwesome5Solid.plug,
-                                                color: _themeData.primaryColor,
-                                              ),
-                                              SizedBox(width: kSpacingNormal),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      children: [
-                                                        TextSpan(
-                                                          text: "29,5",
-                                                          style: _themeData
-                                                              .textTheme
-                                                              .headline5
-                                                              .copyWith(
-                                                            color: _themeData
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: " KwH",
-                                                          style: _themeData
-                                                              .textTheme.caption
-                                                              .copyWith(
-                                                            color: _themeData
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height: kSpacingNormal),
-                                                  Text(
-                                                    "Power usage today",
-                                                    style: _themeData
-                                                        .textTheme.overline
-                                                        .copyWith(
-                                                      color: _themeData
-                                                          .primaryColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                FontAwesome5Solid.plug,
-                                                color: _themeData.primaryColor,
-                                              ),
-                                              SizedBox(width: kSpacingNormal),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      children: [
-                                                        TextSpan(
-                                                          text: "303",
-                                                          style: _themeData
-                                                              .textTheme
-                                                              .headline5
-                                                              .copyWith(
-                                                            color: _themeData
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: " KwH",
-                                                          style: _themeData
-                                                              .textTheme.caption
-                                                              .copyWith(
-                                                            color: _themeData
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height: kSpacingNormal),
-                                                  Text(
-                                                    "Power usage this month",
-                                                    style: _themeData
-                                                        .textTheme.overline
-                                                        .copyWith(
-                                                      color: _themeData
-                                                          .primaryColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                    PowerUsage(height: _kHeight),
+                                    SizedBox(height: _kHeight * 0.02),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        decoration: kCurvedBackground.copyWith(
+                                          color: _themeData.disabledColor,
+                                        ),
                                       ),
                                     ),
                                   ],
