@@ -1,6 +1,7 @@
 import 'package:beta_project/core/globals.dart';
 import 'package:flutter/material.dart';
 
+/// Widget for each [Scene]
 class ScenarioItem extends StatefulWidget {
   final bool isEnabled;
   final IconData icon;
@@ -27,23 +28,36 @@ class _ScenarioItemState extends State<ScenarioItem> {
     kHeight = size.height;
     kWidth = size.width;
 
-    return Container(
-      height: kWidth * 0.25,
-      width: kWidth * 0.25,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kSpacingXLarge),
-        color: widget.isEnabled
-            ? themeData.primaryColor
-            : themeData.scaffoldBackgroundColor,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(widget.icon),
-          SizedBox(height: kSpacingLarge),
-          Text(widget.title),
-        ],
+    return InkWell(
+      onTap: widget.onPress,
+      child: AnimatedContainer(
+        duration: kAnimationDuration,
+        height: kWidth * 0.25,
+        width: kWidth * 0.25,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(kSpacingXLarge),
+          color: widget.isEnabled
+              ? themeData.primaryColor.withOpacity(kNoOpacity)
+              : themeData.primaryColor.withOpacity(kLightOpacity),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              widget.icon,
+              size: kSpacingXXLarge,
+              color: widget.isEnabled ? kWhite : kBlack,
+            ),
+            SizedBox(height: kSpacingNormal),
+            Text(
+              widget.title,
+              style: TextStyle(
+                color: widget.isEnabled ? kWhite : kBlack,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

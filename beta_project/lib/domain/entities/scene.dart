@@ -1,7 +1,10 @@
+
+import 'package:flutter/material.dart';
+
 /// Base class for all records
 abstract class SceneEntity {
   final String title;
-  final String iconName;
+  final IconData icon;
 
-  SceneEntity(this.title, this.iconName);
+  const SceneEntity(this.title, this.icon);
 }

@@ -1,4 +1,6 @@
+import 'package:beta_project/data/models/scene.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -48,7 +50,7 @@ const Color kSecondaryColor = Color(0xFF666159);
 const Color kLightColor = Color(0xffffffff);
 const Color kDisabledColor = Color(0xFFF2F2F2);
 const Color kDisabledColorDark = Color(0xFF1E1E1E);
-const Color kBlack = Color(0xFF666159);
+const Color kBlack = Colors.black87;
 const Color kWhite = Colors.white;
 const Color kFadedColor = Color(0xFFA0A5BD);
 final kShadowColor = Color(0xFFD3D3D3).withOpacity(.84);
@@ -66,7 +68,7 @@ const double kCardElevation = 2.0;
 const double kChatHeadElevation = 4.0;
 const double kBottomNavElevation = 8.0;
 // Opacity
-const double kLightOpacity = 0.3;
+const double kLightOpacity = 0.2;
 const double kMidOpacity = 0.4;
 const double kDefaultOpacity = 0.6;
 const double kNoOpacity = 0.9;
@@ -100,11 +102,17 @@ const String kUsersRef = "users";
 const String kMembersRef = "members";
 
 /// Testing
+const List<Scene> kScenes = [
+  const Scene("Home", Feather.home),
+  const Scene("Away", FlutterIcons.door_open_faw5s),
+  const Scene("Sleep", FlutterIcons.weather_night_partly_cloudy_mco),
+  const Scene("Get up", FlutterIcons.weather_cloudy_mco),
+];
+//const List<Scene> kScenes = [];
 const String kDefaultAvatar =
     "https://images.unsplash.com/flagged/photo-1558829608-12b0a5d6dbc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60";
 const String kDefaultEmail = "demo@domain.com";
 const String kDefaultUserName = "John Doe";
-
 
 abstract class Globals {
   static String kUserPin;

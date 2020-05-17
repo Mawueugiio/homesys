@@ -9,6 +9,7 @@ import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/loaders.dart';
 import 'package:beta_project/presentation/widget/power_usage.dart';
+import 'package:beta_project/presentation/widget/scenario_item.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +27,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ThemeData _themeData;
   double _kHeight, _kWidth;
   PrefsBloc _prefsBloc;
-
-  @override
-  void dispose() {
-    _prefsBloc.close();
-    super.dispose();
-  }
+  int _currentSceneIndex = 0;
 
   @override
   void didChangeDependencies() {
@@ -234,9 +230,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   ),
                                                 ),
                                                 IconButton(
-                                                  icon: Icon(
-                                                    Feather.plus
-                                                  ),
+                                                  icon: Icon(Feather.plus),
                                                   onPressed: () {
                                                     _scaffoldKey.currentState
                                                       ..removeCurrentSnackBar()
@@ -249,8 +243,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                               ],
                                             ),
                                             SizedBox(height: kSpacingXLarge),
-                                            ListView(
-
+                                            Container(
+                                              height: _kWidth * 0.2,
+                                              child: ListView.separated(
+                                                separatorBuilder: (_, __) =>
+                                                    SizedBox(
+                                                        width: kSpacingLarge),
+                                                itemCount: kScenes.length,
+                                                physics:
+                                                    BouncingScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: false,
+                                                itemBuilder: (_, int index) {
+                                                  var scene = kScenes[index];
+                                                  return ScenarioItem(
+                                                    isEnabled:
+                                                        _currentSceneIndex ==
+                                                            index,
+                                                    icon: scene.icon,
+                                                    title: scene.title,
+                                                    onPress: () {
+                                                      setState(() {
+                                                        _currentSceneIndex =
+                                                            index;
+                                                      });
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ],
                                         ),

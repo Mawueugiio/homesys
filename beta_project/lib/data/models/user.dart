@@ -4,11 +4,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
+//   'scenes': instance.scenes.map((e) => (e as Scene).toJson()).toList(),
 @JsonSerializable()
 class User extends UserEntity {
-  User(String name, String token, String pin, String avatar,
-      List<String> devices, int lastSeen, List<Scene> scenes)
-      : super(name, token, pin, avatar, devices, lastSeen, scenes);
+  User(String name, String token, String pin, String avatar, int lastSeen)
+      : super(name, token, pin, avatar, lastSeen);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

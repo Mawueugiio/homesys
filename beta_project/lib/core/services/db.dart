@@ -1,6 +1,5 @@
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/injection/service_locator.dart';
-import 'package:beta_project/data/models/scene.dart';
 import 'package:beta_project/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -53,20 +52,20 @@ class DatabaseService {
           token,
           pin,
           kDefaultAvatar,
-          <String>[
-            "Light",
-            "AC",
-            "Door",
-            "WiFi",
-            "Smart TV",
-          ],
+//          <String>[
+//            "Light",
+//            "AC",
+//            "Door",
+//            "WiFi",
+//            "Smart TV",
+//          ],
           DateTime.now().millisecondsSinceEpoch,
-          <Scene>[
-            Scene("Home", "home"),
-            Scene("Away", "home"),
-            Scene("Sleep", "home"),
-            Scene("Get up", "home"),
-          ],
+//          <Scene>[
+//            Scene("Home", "home"),
+//            Scene("Away", "home"),
+//            Scene("Sleep", "home"),
+//            Scene("Get up", "home"),
+//          ],
         ).toJson(),
         merge: true);
   }
