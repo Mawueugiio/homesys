@@ -1,4 +1,6 @@
-import 'package:beta_project/presentation/ui/welcome.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:beta_project/core/guards.dart';
+import 'package:beta_project/core/routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +20,10 @@ class _HomeSysAppState extends State<HomeSysApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: GoogleFonts.rubik().fontFamily,
       ),
-      home: WelcomeScreen(),
+      builder: ExtendedNavigator<Router>(
+        router: Router(),
+        guards: [AuthGuard()],
+      ),
     );
   }
 }
