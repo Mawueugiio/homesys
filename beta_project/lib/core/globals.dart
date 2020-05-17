@@ -95,8 +95,12 @@ const String kPrefsKey = "prefs_user_key";
 const String kPrefsSettings = "prefs_settings";
 const String kPrefsUser = "prefs_user";
 
+/// Refs
+const String kUsersRef = "users";
+const String kMembersRef = "members";
+
 /// Testing
-const String kDefaultUrl =
+const String kDefaultAvatar =
     "https://images.unsplash.com/flagged/photo-1558829608-12b0a5d6dbc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60";
 const String kDefaultEmail = "demo@domain.com";
 const String kDefaultUserName = "John Doe";

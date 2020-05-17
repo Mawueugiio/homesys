@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/injection/service_locator.dart';
+import 'package:beta_project/core/services/db.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -25,11 +26,13 @@ class PrefsBloc extends Bloc<PrefsEvent, GlobalState> {
   Stream<GlobalState> mapEventToState(
     PrefsEvent event,
   ) async* {
+    final dbService = sl.get<DatabaseService>();
     yield LoadingState(true);
 
     if (event is LoginEvent) {
       // Get the user's pin
       await _prefs.setString(kPrefsKey, event.pin);
+      await dbService.getOrCreateUser(event.pin);
       yield LoadingState(false);
       yield SuccessState(null);
     } else if (event is LogoutEvent) {
