@@ -12,6 +12,7 @@ import 'package:beta_project/presentation/widget/power_usage.dart';
 import 'package:beta_project/presentation/widget/scenario_item.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -90,17 +91,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             }),
         actions: [
           IconButton(
-              icon: Icon(Feather.search, color: kWhite),
-              onPressed: () {
-                _scaffoldKey.currentState
-                  ..removeCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text("Not available"),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-              }),
+            icon: Icon(Feather.user_plus, color: kWhite),
+            onPressed: addNewMember,
+          ),
           IconButton(
             icon: Icon(Feather.bell, color: kWhite),
             onPressed: () => ExtendedNavigator.of(context)
@@ -242,7 +235,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 )
                                               ],
                                             ),
-                                            SizedBox(height: kSpacingXLarge),
+                                            SizedBox(height: kSpacingLarge),
                                             Container(
                                               height: _kWidth * 0.2,
                                               child: ListView.separated(
@@ -273,6 +266,86 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 },
                                               ),
                                             ),
+                                            SizedBox(height: kSpacingXLarge),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Devices",
+                                                  style: _themeData
+                                                      .textTheme.caption
+                                                      .copyWith(
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(Feather.plus),
+                                                  onPressed: () {
+                                                    _scaffoldKey.currentState
+                                                      ..removeCurrentSnackBar()
+                                                      ..showSnackBar(
+                                                        ErrorSnackBar(
+                                                            "Cannot add new scenarios for now"),
+                                                      );
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: kSpacingXLarge),
+                                            Column(
+                                              mainAxisSize:
+                                                  MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  height: _kHeight * 0.23,
+                                                  width: double.infinity,
+                                                  child: ListView.separated(
+                                                    separatorBuilder: (_, __) =>
+                                                        SizedBox(
+                                                            width: kSpacingLarge),
+                                                    itemCount: kScenes.length,
+                                                    physics:
+                                                    BouncingScrollPhysics(),
+                                                    scrollDirection:
+                                                    Axis.horizontal,
+                                                    shrinkWrap: false,
+                                                    itemBuilder: (_, int index) {
+                                                      var scene = kScenes[index];
+                                                      return InkWell(
+                                                        onTap: () {},
+                                                        child: Container(
+                                                          height: 150,
+                                                          width:
+                                                          _kWidth * 0.4,
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                kSpacingXLarge),
+                                                            color: _themeData
+                                                                .accentColor
+                                                                .withOpacity(
+                                                                kLightOpacity),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    height: kSpacingXLarge),
+                                                ButtonPrimary(
+                                                  text:
+                                                      "Turn off all devices",
+                                                  onPressed: () {},
+                                                  width: _kWidth * 0.7,
+                                                  themeData: _themeData,
+                                                ),
+                                              ],
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -302,10 +375,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     : Loading(),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: addNewMember,
-        child: Icon(Feather.user_plus),
       ),
     );
   }

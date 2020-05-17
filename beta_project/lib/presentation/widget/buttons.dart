@@ -83,7 +83,7 @@ class ButtonPrimary extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            text.toUpperCase(),
+            text,
             style: themeData.textTheme.button.copyWith(
               color: disabled
                   ? isDarkTheme ? Colors.grey : Colors.black87

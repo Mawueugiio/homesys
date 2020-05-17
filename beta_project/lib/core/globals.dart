@@ -1,4 +1,5 @@
 import 'package:beta_project/data/models/scene.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,8 +106,14 @@ const String kMembersRef = "members";
 const List<Scene> kScenes = [
   const Scene("Home", Feather.home),
   const Scene("Away", FlutterIcons.door_open_faw5s),
+  const Scene("Sleep", EvaIcons.moonOutline),
+  const Scene("Get up", EvaIcons.sunOutline),
+];
+const List<Scene> kDevices = [
+  const Scene("Home", Feather.home),
+  const Scene("Away", FlutterIcons.door_open_faw5s),
   const Scene("Sleep", FlutterIcons.weather_night_partly_cloudy_mco),
-  const Scene("Get up", FlutterIcons.weather_cloudy_mco),
+  const Scene("Get up", FlutterIcons.weather_partly_cloudy_mco),
 ];
 //const List<Scene> kScenes = [];
 const String kDefaultAvatar =
