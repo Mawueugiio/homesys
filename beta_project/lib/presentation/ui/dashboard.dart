@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/routes.gr.dart';
+import 'package:beta_project/data/models/user.dart';
+import 'package:beta_project/domain/entities/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
+import 'package:beta_project/presentation/widget/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -16,7 +20,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   ThemeData _themeData;
   double _kHeight, _kWidth;
-  bool _isLoading = false;
   PrefsBloc _prefsBloc;
 
   @override
@@ -30,18 +33,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _kHeight = size.height;
 
     _prefsBloc = BlocProvider.of<PrefsBloc>(context);
-    _prefsBloc.add(GetPinEvent());
+    _prefsBloc.add(GetCurrentUserEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      backgroundColor: _themeData.primaryColor,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(kAppName),
+        brightness: Brightness.dark,
+        title: Text(kAppName, style: TextStyle(color: kWhite)),
         leading: IconButton(
-            icon: Icon(Feather.user),
+            icon: Icon(Feather.power, color: kWhite),
             onPressed: () {
               _scaffoldKey.currentState
                 ..removeCurrentSnackBar()
@@ -54,7 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             }),
         actions: [
           IconButton(
-              icon: Icon(Feather.search),
+              icon: Icon(Feather.search, color: kWhite),
               onPressed: () {
                 _scaffoldKey.currentState
                   ..removeCurrentSnackBar()
@@ -66,7 +73,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   );
               }),
           IconButton(
-            icon: Icon(Feather.bell),
+            icon: Icon(Feather.bell, color: kWhite),
             onPressed: () => ExtendedNavigator.of(context)
                 .pushNamed(Routes.notificationsScreenRoute),
           ),
@@ -77,10 +84,278 @@ class _DashboardScreenState extends State<DashboardScreen> {
         builder: (_, GlobalState state) {
           return AnimatedContainer(
             duration: kAnimationDuration,
-            child: Container(),
+            height: _kHeight,
+            width: _kWidth,
+            child: state is SuccessState<Stream<UserEntity>>
+                ? StreamBuilder<User>(
+                    stream: state.data,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final user = snapshot.data;
+                        print(user?.toJson());
+                        return Stack(
+                          fit: StackFit.loose,
+                          children: [
+                            Container(
+                              height: _kHeight * 0.25,
+                              width: _kWidth,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Feather.cloud_lightning,
+                                        size: kSpacingXXLarge,
+                                        color: kWhite,
+                                      ),
+                                      SizedBox(height: kSpacingNormal),
+                                      Text(
+                                        "Lightning",
+                                        style: _themeData.textTheme.subtitle2
+                                            .copyWith(color: kWhite),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "19°",
+                                        style: _themeData.textTheme.headline5
+                                            .copyWith(
+                                                color: kWhite,
+                                                fontSize: kSpacingXXLarge - 3),
+                                      ),
+                                      SizedBox(height: kSpacingNormal),
+                                      Text("Temp Outside",
+                                          style: _themeData.textTheme.subtitle2
+                                              .copyWith(color: kWhite)),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "25°",
+                                        style: _themeData.textTheme.headline5
+                                            .copyWith(
+                                                color: kWhite,
+                                                fontSize: kSpacingXXLarge - 3),
+                                      ),
+                                      SizedBox(height: kSpacingNormal),
+                                      Text("Temp Inside",
+                                          style: _themeData.textTheme.subtitle2
+                                              .copyWith(color: kWhite)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: _kHeight * 0.2,
+                              bottom: 0,
+                              width: _kWidth,
+                              child: Container(
+                                decoration: kCurvedBackground.copyWith(
+                                    color: _themeData.scaffoldBackgroundColor),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: _kHeight * 0.12,
+                                      margin: EdgeInsets.all(kSpacingXLarge),
+                                      decoration: BoxDecoration(
+                                        color: _themeData.disabledColor,
+                                        borderRadius: BorderRadius.circular(
+                                            kSpacingXLarge),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                FontAwesome5Solid.plug,
+                                                color: _themeData.primaryColor,
+                                              ),
+                                              SizedBox(width: kSpacingNormal),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: "29,5",
+                                                          style: _themeData
+                                                              .textTheme
+                                                              .headline5
+                                                              .copyWith(
+                                                            color: _themeData
+                                                                .primaryColor,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: " KwH",
+                                                          style: _themeData
+                                                              .textTheme.caption
+                                                              .copyWith(
+                                                            color: _themeData
+                                                                .primaryColor,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height: kSpacingNormal),
+                                                  Text(
+                                                    "Power usage today",
+                                                    style: _themeData
+                                                        .textTheme.overline
+                                                        .copyWith(
+                                                      color: _themeData
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                FontAwesome5Solid.plug,
+                                                color: _themeData.primaryColor,
+                                              ),
+                                              SizedBox(width: kSpacingNormal),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: "303",
+                                                          style: _themeData
+                                                              .textTheme
+                                                              .headline5
+                                                              .copyWith(
+                                                            color: _themeData
+                                                                .primaryColor,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: " KwH",
+                                                          style: _themeData
+                                                              .textTheme.caption
+                                                              .copyWith(
+                                                            color: _themeData
+                                                                .primaryColor,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height: kSpacingNormal),
+                                                  Text(
+                                                    "Power usage this month",
+                                                    style: _themeData
+                                                        .textTheme.overline
+                                                        .copyWith(
+                                                      color: _themeData
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    })
+                : state is ErrorState
+                    ? Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Feather.user_x, size: kLargeAvatarSize),
+                            SizedBox(height: _kHeight * 0.15),
+                            Text(state.reason,
+                                style: _themeData.textTheme.bodyText2),
+                          ],
+                        ),
+                      )
+                    : Loading(),
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: addNewMember,
+        child: Icon(Feather.user_plus),
+      ),
     );
+  }
+
+  void addNewMember() async {
+    await showSlidingBottomSheet(context, builder: (context) {
+      return SlidingSheetDialog(
+        elevation: 8,
+        cornerRadius: 16,
+        snapSpec: const SnapSpec(
+          snap: true,
+          snappings: [0.4, 0.7, 1.0],
+          positioning: SnapPositioning.relativeToAvailableSpace,
+        ),
+        builder: (context, state) {
+          return Container(
+            height: 400,
+            child: Center(
+              child: Material(
+                child: InkWell(
+                  onTap: () => Navigator.pop(context, 'This is the result.'),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      'This is the content of the sheet',
+                      style: Theme.of(context).textTheme.body1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }); // This is the result.
   }
 }

@@ -14,25 +14,24 @@ class DatabaseService {
       DatabaseService._(sl.get<Firestore>());
 
   /// Returns all users in the database
-  Stream<List<dynamic>> getUsers() => _db
-      .collection(kUsersRef)
-      .snapshots()
-      .map((event) => event.documents.map((e) => e.data).toList());
+  Stream<List<User>> getUsers() => _db.collection(kUsersRef).snapshots().map(
+      (event) => event.documents.map((e) => User.fromJson(e.data)).toList());
 
   /// Returns all members for a particular user with [pin] in the database
-  Stream<List<dynamic>> getMembers(String pin) => _db
+  Stream<List<User>> getMembers(String pin) => _db
       .collection(kUsersRef)
       .document(pin)
       .collection(kMembersRef)
       .snapshots()
-      .map((event) => event.documents.map((e) => e.data).toList());
+      .map((event) =>
+          event.documents.map((e) => User.fromJson(e.data)).toList());
 
   /// Returns the current user with [pin]
-  Stream<dynamic> getUserById(String pin) => _db
+  Stream<User> getMemberById(String pin) => _db
       .collection(kUsersRef)
       .document(pin)
       .snapshots()
-      .map((event) => event.data);
+      .map((event) => User.fromJson(event.data));
 
   Future<void> getOrCreateUser(String pin) async {
     final token = await sl.get<FirebaseMessaging>().getToken();

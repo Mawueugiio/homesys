@@ -18,6 +18,20 @@ class GetPinEvent extends PrefsEvent {
   List<Object> get props => [];
 }
 
+class GetCurrentUserEvent extends PrefsEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class GetMemberEvent extends PrefsEvent {
+  final String pin;
+
+  GetMemberEvent(this.pin);
+
+  @override
+  List<Object> get props => [pin];
+}
+
 class LogoutEvent extends PrefsEvent {
   @override
   List<Object> get props => [];

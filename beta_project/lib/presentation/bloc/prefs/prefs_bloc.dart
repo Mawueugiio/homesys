@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/injection/service_locator.dart';
 import 'package:beta_project/core/services/db.dart';
+import 'package:beta_project/data/models/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -47,6 +48,19 @@ class PrefsBloc extends Bloc<PrefsEvent, GlobalState> {
         yield ErrorState("No PIN found for user");
       else
         yield SuccessState<String>(pin);
+    } else if (event is GetMemberEvent) {
+      yield LoadingState(false);
+      yield SuccessState<Stream<User>>(dbService.getMemberById(event.pin));
+    } else if (event is GetCurrentUserEvent) {
+      final pin = _prefs?.getString(kPrefsKey);
+      print("Prefs pin -> $pin");
+      yield LoadingState(false);
+      if (pin == null || pin.isEmpty)
+        yield ErrorState("No PIN found for user");
+      else {
+        Globals.kUserPin = pin;
+        yield SuccessState<Stream<User>>(dbService.getMemberById(pin));
+      }
     }
   }
 }

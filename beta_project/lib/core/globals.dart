@@ -12,21 +12,16 @@ final ShapeBorder kDialogShape = RoundedRectangleBorder(
 );
 
 /// Decorations
-final BoxDecoration kCurvedBackgroundLight = BoxDecoration(
+final BoxDecoration kCurvedBackground = BoxDecoration(
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(kSpacingXXLarge),
+    topRight: Radius.circular(kSpacingXXLarge),
   ),
-  color: kWhite,
-);
-final BoxDecoration kCurvedBackgroundDark = BoxDecoration(
-  borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(kSpacingXXLarge),
-  ),
-  color: kDarkPrimaryColor,
 );
 final BoxDecoration kColoredDecoration = BoxDecoration(
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(kSpacingXXLarge),
+    topRight: Radius.circular(kSpacingXXLarge),
   ),
   color: kPrimaryColorVariant.withOpacity(kNoOpacity),
 );
@@ -48,7 +43,7 @@ const Color kPrimaryColorVariant = Color(0xfff0b4ac);
 const Color kSecondaryColor = Color(0xfff0b4ac);
 const Color kLightColor = Color(0xfff5eded);
 const Color kWelcomeColor = Color(0xfff0b4ac);
-const Color kDisabledColor = Color(0xFFaaaaaa);
+const Color kDisabledColor = Color(0xFFdee1ec);
 const Color kBlack = Colors.black87;
 const Color kWhite = Colors.white;
 const Color kFadedColor = Color(0xFFA0A5BD);
@@ -104,3 +99,9 @@ const String kDefaultAvatar =
     "https://images.unsplash.com/flagged/photo-1558829608-12b0a5d6dbc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60";
 const String kDefaultEmail = "demo@domain.com";
 const String kDefaultUserName = "John Doe";
+
+
+abstract class Globals {
+  static String kUserPin;
+  static String kUser;
+}

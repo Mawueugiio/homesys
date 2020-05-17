@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 GetIt sl = GetIt.instance;
 
 Future<void> registerServices() async {
-  sl.registerSingletonAsync(() async => await SharedPreferences.getInstance());
+  sl.registerFactoryAsync(() async => await SharedPreferences.getInstance());
 
   // Firebase APIs
   sl.registerSingleton<Firestore>(Firestore.instance);
@@ -20,4 +20,8 @@ Future<void> registerServices() async {
 
   // Services
   sl.registerSingleton<DatabaseService>(DatabaseService.instance);
+
+  /// Get user key, if any, and save globally
+  final prefs = await sl.getAsync<SharedPreferences>();
+  Globals.kUserPin = prefs.getString(kPrefsKey);
 }
