@@ -14,6 +14,7 @@ class PowerUsage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData _themeData = Theme.of(context);
+    bool isDarkMode = _themeData.brightness == Brightness.dark;
 
     return Container(
       width: double.infinity,
@@ -31,7 +32,7 @@ class PowerUsage extends StatelessWidget {
             children: [
               Icon(
                 FlutterIcons.plug_faw5s,
-                color: _themeData.primaryColor,
+                color: isDarkMode ? kWhite : _themeData.primaryColor,
               ),
               SizedBox(width: kSpacingNormal),
               Column(
@@ -44,13 +45,15 @@ class PowerUsage extends StatelessWidget {
                         TextSpan(
                           text: "29,5",
                           style: _themeData.textTheme.headline5.copyWith(
-                            color: _themeData.primaryColor,
+                            color:
+                                isDarkMode ? kWhite : _themeData.primaryColor,
                           ),
                         ),
                         TextSpan(
                           text: " KwH",
                           style: _themeData.textTheme.caption.copyWith(
-                            color: _themeData.primaryColor,
+                            color:
+                                isDarkMode ? kWhite : _themeData.primaryColor,
                           ),
                         ),
                       ],
@@ -60,7 +63,7 @@ class PowerUsage extends StatelessWidget {
                   Text(
                     "Power usage today",
                     style: _themeData.textTheme.overline.copyWith(
-                      color: _themeData.primaryColor,
+                      color: isDarkMode ? kWhite : _themeData.primaryColor,
                     ),
                   ),
                 ],
@@ -72,7 +75,7 @@ class PowerUsage extends StatelessWidget {
             children: [
               Icon(
                 FontAwesome5Solid.plug,
-                color: _themeData.primaryColor,
+                color: isDarkMode ? kWhite : _themeData.primaryColor,
               ),
               SizedBox(width: kSpacingNormal),
               Column(
@@ -85,13 +88,15 @@ class PowerUsage extends StatelessWidget {
                         TextSpan(
                           text: "303",
                           style: _themeData.textTheme.headline5.copyWith(
-                            color: _themeData.primaryColor,
+                            color:
+                                isDarkMode ? kWhite : _themeData.primaryColor,
                           ),
                         ),
                         TextSpan(
                           text: " KwH",
                           style: _themeData.textTheme.caption.copyWith(
-                            color: _themeData.primaryColor,
+                            color:
+                                isDarkMode ? kWhite : _themeData.primaryColor,
                           ),
                         ),
                       ],
@@ -101,7 +106,7 @@ class PowerUsage extends StatelessWidget {
                   Text(
                     "Power usage this month",
                     style: _themeData.textTheme.overline.copyWith(
-                      color: _themeData.primaryColor,
+                      color: isDarkMode ? kWhite : _themeData.primaryColor,
                     ),
                   ),
                 ],

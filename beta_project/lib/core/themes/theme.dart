@@ -9,6 +9,12 @@ class KThemes {
     buttonColor: kPrimaryColor,
     backgroundColor: kLightColor,
     dialogBackgroundColor: kLightColor,
+    dialogTheme: DialogTheme(
+      shape: kDialogShape,
+      titleTextStyle: kDialogTitleStyle.copyWith(fontFamily: kDefaultFontFamily),
+      contentTextStyle:
+      kDialogSubtitleStyle.copyWith(fontFamily: kSecondaryFontFamily),
+    ),
     tabBarTheme: TabBarTheme(
       unselectedLabelStyle: TextStyle(
         fontSize: 16,
@@ -137,6 +143,12 @@ class KThemes {
     buttonColor: kDarkAccentColor,
     backgroundColor: Color(0xff222222),
     dialogBackgroundColor: Color(0xff222222),
+    dialogTheme: DialogTheme(
+      shape: kDialogShape,
+      titleTextStyle: kDialogTitleStyle.copyWith(fontFamily: kDefaultFontFamily),
+      contentTextStyle:
+      kDialogSubtitleStyle.copyWith(fontFamily: kSecondaryFontFamily),
+    ),
     tabBarTheme: TabBarTheme(
       unselectedLabelStyle: TextStyle(
         fontSize: 16,
@@ -146,9 +158,9 @@ class KThemes {
           fontSize: 16,
           fontFamily: kSecondaryFontFamily,
           fontWeight: FontWeight.w600),
-      unselectedLabelColor: kDisabledColor,
+      unselectedLabelColor: kDisabledColorDark,
     ),
-    disabledColor: kDisabledColor,
+    disabledColor: kDisabledColorDark,
     brightness: Brightness.dark,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       shape: RoundedRectangleBorder(

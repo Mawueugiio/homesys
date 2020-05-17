@@ -1,5 +1,6 @@
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/injection/service_locator.dart';
+import 'package:beta_project/data/models/scene.dart';
 import 'package:beta_project/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -34,8 +35,10 @@ class DatabaseService {
       .map((event) => User.fromJson(event.data));
 
   Future<void> getOrCreateUser(String pin) async {
-    final token = await sl.get<FirebaseMessaging>().getToken();
+    final fm = sl.get<FirebaseMessaging>();
+    final token = await fm.getToken();
     print("User's token -> $token");
+    await fm.subscribeToTopic(kSecurityTopic);
     final docRef = _db.collection(kUsersRef).document(pin);
     var snapshot = await docRef.get();
     if (snapshot.exists && snapshot.documentID == pin) {
@@ -57,13 +60,13 @@ class DatabaseService {
             "WiFi",
             "Smart TV",
           ],
-          <String>[
-            "Home",
-            "Away",
-            "Sleep",
-            "Get up",
-          ],
           DateTime.now().millisecondsSinceEpoch,
+          <Scene>[
+            Scene("Home", "home"),
+            Scene("Away", "home"),
+            Scene("Sleep", "home"),
+            Scene("Get up", "home"),
+          ],
         ).toJson(),
         merge: true);
   }

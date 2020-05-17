@@ -13,8 +13,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
     json['pin'] as String,
     json['avatar'] as String,
     (json['devices'] as List)?.map((e) => e as String)?.toList(),
-    (json['scenes'] as List)?.map((e) => e as String)?.toList(),
     json['lastSeen'] as int,
+    (json['scenes'] as List)
+        ?.map(
+            (e) => e == null ? null : Scene.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -24,6 +27,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'pin': instance.pin,
       'avatar': instance.avatar,
       'devices': instance.devices,
-      'scenes': instance.scenes,
       'lastSeen': instance.lastSeen,
+      'scenes': instance.scenes,
     };

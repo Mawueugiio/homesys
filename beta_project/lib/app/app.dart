@@ -6,7 +6,6 @@ import 'package:beta_project/core/themes/theme.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +30,7 @@ class _HomeSysAppState extends State<HomeSysApp> {
           FirebaseAnalyticsObserver(analytics: analytics),
         ],
         locale: Localizations.localeOf(context, nullOk: true),
-        debugShowCheckedModeBanner: !kReleaseMode,
+        debugShowCheckedModeBanner: false,
         // FIXME: You can add your own theme in this class
         theme: KThemes.lightTheme,
         darkTheme: KThemes.darkTheme,

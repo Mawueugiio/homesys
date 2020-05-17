@@ -10,6 +10,10 @@ String formatTimestampAgo(int timestamp) =>
 final ShapeBorder kDialogShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(kSpacingLarge)),
 );
+const kDialogTitleStyle = const TextStyle(
+    color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600);
+const kDialogSubtitleStyle = const TextStyle(
+    color: Colors.black87, fontSize: 16, fontWeight: FontWeight.w500);
 
 /// Decorations
 final BoxDecoration kCurvedBackground = BoxDecoration(
@@ -43,6 +47,7 @@ const Color kPrimaryColorVariant = Color(0xFF666159);
 const Color kSecondaryColor = Color(0xFF666159);
 const Color kLightColor = Color(0xffffffff);
 const Color kDisabledColor = Color(0xFFF2F2F2);
+const Color kDisabledColorDark = Color(0xFF1E1E1E);
 const Color kBlack = Color(0xFF666159);
 const Color kWhite = Colors.white;
 const Color kFadedColor = Color(0xFFA0A5BD);
@@ -90,6 +95,7 @@ const String kPrefsSettings = "prefs_settings";
 const String kPrefsUser = "prefs_user";
 
 /// Refs
+const String kSecurityTopic = "security_notifications_topic";
 const String kUsersRef = "users";
 const String kMembersRef = "members";
 

@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:beta_project/core/globals.dart';
+import 'package:beta_project/core/injection/service_locator.dart';
 import 'package:beta_project/core/routes.gr.dart';
 import 'package:beta_project/data/models/user.dart';
 import 'package:beta_project/domain/entities/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
+import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/loaders.dart';
 import 'package:beta_project/presentation/widget/power_usage.dart';
+import 'package:beta_project/presentation/widget/snackbars.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -22,6 +26,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ThemeData _themeData;
   double _kHeight, _kWidth;
   PrefsBloc _prefsBloc;
+
+  @override
+  void dispose() {
+    _prefsBloc.close();
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {
@@ -51,14 +61,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
         leading: IconButton(
             icon: Icon(Feather.power, color: kWhite),
             onPressed: () {
-              _scaffoldKey.currentState
-                ..removeCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(
-                    content: Text("Not available"),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
+              showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: Text("Confirm logout"),
+                  content: Text(
+                      "Signing out will restrict you from receiving security notifications. Do you wish to continue?"),
+                  actions: [
+                    ButtonClear(
+                      text: "No",
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      themeData: _themeData,
+                    ),
+                    ButtonClear(
+                      text: "Yes",
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                        sl
+                            .get<FirebaseMessaging>()
+                            .unsubscribeFromTopic(kSecurityTopic);
+                        _prefsBloc.add(LogoutEvent());
+                        ExtendedNavigator.of(context)
+                            .pushReplacementNamed(Routes.loginScreenRoute);
+                      },
+                      themeData: _themeData,
+                    ),
+                  ],
+                ),
+              );
             }),
         actions: [
           IconButton(
@@ -97,6 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         return Stack(
                           fit: StackFit.loose,
                           children: [
+                            // FIXME: Create widget for this
                             Container(
                               height: _kHeight * 0.25,
                               width: _kWidth,
@@ -178,6 +211,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         decoration: kCurvedBackground.copyWith(
                                           color: _themeData.disabledColor,
                                         ),
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: kSpacingXLarge,
+                                          vertical: kSpacingLarge,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Scenarios",
+                                                  style: _themeData
+                                                      .textTheme.caption
+                                                      .copyWith(
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    Feather.plus
+                                                  ),
+                                                  onPressed: () {
+                                                    _scaffoldKey.currentState
+                                                      ..removeCurrentSnackBar()
+                                                      ..showSnackBar(
+                                                        ErrorSnackBar(
+                                                            "Cannot add new scenarios for now"),
+                                                      );
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: kSpacingXLarge),
+                                            ListView(
+
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -234,7 +310,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.all(16),
                     child: Text(
                       'This is the content of the sheet',
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),

@@ -5,9 +5,9 @@ abstract class UserEntity {
   final String pin;
   final String avatar;
   final List<String> devices;
-  final List<String> scenes;
   final int lastSeen;
+  final List<dynamic> scenes;
 
   UserEntity(this.name, this.token, this.pin, this.avatar, this.devices,
-      this.scenes, this.lastSeen);
+      this.lastSeen, this.scenes);
 }
