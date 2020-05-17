@@ -143,6 +143,9 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/lr/lr.webp
+    - assets/br/br.webp
+    - assets/kt/kt.webp
     - assets/welcome.svg
     - assets/logo/logo.webp
     - assets/logo/2x/logo.webp

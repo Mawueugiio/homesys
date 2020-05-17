@@ -9,10 +9,10 @@ import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/loaders.dart';
 import 'package:beta_project/presentation/widget/power_usage.dart';
+import 'package:beta_project/presentation/widget/room_item.dart';
 import 'package:beta_project/presentation/widget/scenario_item.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -266,37 +266,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 },
                                               ),
                                             ),
-                                            SizedBox(height: kSpacingXLarge),
+                                            SizedBox(height: kSpacingXXLarge),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Devices",
+                                                  "Rooms",
                                                   style: _themeData
                                                       .textTheme.caption
                                                       .copyWith(
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                IconButton(
-                                                  icon: Icon(Feather.plus),
-                                                  onPressed: () {
-                                                    _scaffoldKey.currentState
-                                                      ..removeCurrentSnackBar()
-                                                      ..showSnackBar(
-                                                        ErrorSnackBar(
-                                                            "Cannot add new scenarios for now"),
-                                                      );
-                                                  },
-                                                )
+                                                SizedBox.shrink()
                                               ],
                                             ),
                                             SizedBox(height: kSpacingXLarge),
                                             Column(
-                                              mainAxisSize:
-                                                  MainAxisSize.max,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Container(
                                                   height: _kHeight * 0.23,
@@ -304,32 +293,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: ListView.separated(
                                                     separatorBuilder: (_, __) =>
                                                         SizedBox(
-                                                            width: kSpacingLarge),
-                                                    itemCount: kScenes.length,
+                                                            width:
+                                                                kSpacingLarge),
+                                                    itemCount: kRooms.length,
                                                     physics:
-                                                    BouncingScrollPhysics(),
+                                                        BouncingScrollPhysics(),
                                                     scrollDirection:
-                                                    Axis.horizontal,
+                                                        Axis.horizontal,
                                                     shrinkWrap: false,
-                                                    itemBuilder: (_, int index) {
-                                                      var scene = kScenes[index];
-                                                      return InkWell(
-                                                        onTap: () {},
-                                                        child: Container(
-                                                          height: 150,
-                                                          width:
-                                                          _kWidth * 0.4,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                kSpacingXLarge),
-                                                            color: _themeData
-                                                                .accentColor
-                                                                .withOpacity(
-                                                                kLightOpacity),
-                                                          ),
+                                                    itemBuilder:
+                                                        (_, int index) {
+                                                      final roomItem =
+                                                          kRooms[index];
+
+                                                      return RoomItem(
+                                                        roomItem: roomItem,
+                                                        onPress: () =>
+                                                            ExtendedNavigator
+                                                                    .of(context)
+                                                                .pushNamed(
+                                                          Routes
+                                                              .roomDetailsScreenRoute,
+                                                          arguments:
+                                                              RoomDetailsScreenArguments(
+                                                                  room:
+                                                                      roomItem),
                                                         ),
                                                       );
                                                     },
@@ -338,9 +326,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 SizedBox(
                                                     height: kSpacingXLarge),
                                                 ButtonPrimary(
-                                                  text:
-                                                      "Turn off all devices",
-                                                  onPressed: () {},
+                                                  text: "Turn off all devices",
+                                                  onPressed: () {
+                                                    // TODO: Turn off all devices
+                                                  },
                                                   width: _kWidth * 0.7,
                                                   themeData: _themeData,
                                                 ),

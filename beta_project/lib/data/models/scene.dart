@@ -1,6 +1,12 @@
-import 'package:beta_project/domain/entities/scene.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class Scene extends SceneEntity {
-  const Scene(String title, IconData icon) : super(title, icon);
+class Scene extends Equatable {
+  final String title;
+  final IconData icon;
+
+  const Scene(this.title, this.icon);
+
+  @override
+  List<Object> get props => [title, icon];
 }

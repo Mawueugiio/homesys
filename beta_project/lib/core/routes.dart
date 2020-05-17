@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route_annotations.dart';
 import 'package:beta_project/presentation/ui/dashboard.dart';
 import 'package:beta_project/presentation/ui/login.dart';
 import 'package:beta_project/presentation/ui/notifications.dart';
+import 'package:beta_project/presentation/ui/room_details.dart';
 import 'package:beta_project/presentation/ui/welcome.dart';
 
 import 'guards.dart';
@@ -22,4 +23,6 @@ class $Router {
   DashboardScreen dashboardScreenRoute;
   @GuardedBy([AuthGuard])
   NotificationsScreen notificationsScreenRoute;
+  @GuardedBy([AuthGuard])
+  RoomDetailsScreen roomDetailsScreenRoute;
 }

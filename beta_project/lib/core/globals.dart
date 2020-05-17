@@ -1,3 +1,5 @@
+import 'package:beta_project/data/models/device.dart';
+import 'package:beta_project/data/models/room.dart';
 import 'package:beta_project/data/models/scene.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -109,12 +111,18 @@ const List<Scene> kScenes = [
   const Scene("Sleep", EvaIcons.moonOutline),
   const Scene("Get up", EvaIcons.sunOutline),
 ];
-const List<Scene> kDevices = [
-  const Scene("Home", Feather.home),
-  const Scene("Away", FlutterIcons.door_open_faw5s),
-  const Scene("Sleep", FlutterIcons.weather_night_partly_cloudy_mco),
-  const Scene("Get up", FlutterIcons.weather_partly_cloudy_mco),
+const List<Room> kRooms = [
+  const Room("Living Room", "assets/lr/lr.webp", 4),
+  const Room("Bedroom", "assets/br/br.webp", 3),
+  const Room("Kitchen", "assets/kt/kt.webp", 2),
 ];
+const List<Device> kDevices = [
+  const Device("Light", FlutterIcons.oil_lamp_mco, true, metadata: "60%"),
+  const Device("AC", FlutterIcons.snowflake_faw5s, true, metadata: "23%"),
+  const Device("WiFi", EvaIcons.wifiOutline, true, metadata: "On"),
+  const Device("Smart TV", FlutterIcons.tv_faw5s, false, metadata: "Off"),
+];
+
 //const List<Scene> kScenes = [];
 const String kDefaultAvatar =
     "https://images.unsplash.com/flagged/photo-1558829608-12b0a5d6dbc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60";
