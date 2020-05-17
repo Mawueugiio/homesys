@@ -148,6 +148,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  cloud_firestore:
+    dependency: "direct main"
+    description:
+      name: cloud_firestore
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.5"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1+2"
   code_builder:
     dependency: transitive
     description:
@@ -225,6 +246,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  firebase:
+    dependency: transitive
+    description:
+      name: firebase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.3.0"
+  firebase_analytics:
+    dependency: "direct main"
+    description:
+      name: firebase_analytics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.11"
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.4+3"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1+2"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.15"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.5"
   fixnum:
     dependency: transitive
     description:
@@ -251,6 +321,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.2"
+  flutter_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -294,12 +371,12 @@ packages:
     source: hosted
     version: "0.3.0"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.1"
+    version: "0.17.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -763,13 +840,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  undraw:
-    dependency: "direct main"
-    description:
-      name: undraw
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   uuid:
     dependency: transitive
     description:
