@@ -88,7 +88,7 @@ class Record {
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['Name'] != null),
         assert(map['date1'] != null),
-        assert(map['date1'] != null),
+        assert(map['date2'] != null),
         assert(map['Relationship'] != null),
         Name = map['Name'],
         date1 = map['date1'],
