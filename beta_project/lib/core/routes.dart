@@ -13,7 +13,7 @@ import 'guards.dart';
 /// Registers all routes in the application
 /// https://pub.dev/packages/auto_route
 @CustomAutoRouter(
-    transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+    transitionsBuilder: TransitionsBuilders.slideTop,
     durationInMilliseconds: 400)
 class $Router {
   @initial

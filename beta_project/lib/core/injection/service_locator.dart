@@ -1,5 +1,6 @@
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/services/db.dart';
+import 'package:beta_project/core/services/notification_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,6 +21,7 @@ Future<void> registerServices() async {
 
   // Services
   sl.registerSingleton<DatabaseService>(DatabaseService.instance);
+  sl.registerSingleton<NotificationService>(NotificationService.instance);
 
   /// Get user key, if any, and save globally
   final prefs = await sl.getAsync<SharedPreferences>();

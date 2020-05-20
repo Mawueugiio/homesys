@@ -56,7 +56,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               WelcomeScreen(),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       case Routes.loginScreenRoute:
@@ -64,7 +64,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               LoginScreen(),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       case Routes.dashboardScreenRoute:
@@ -72,7 +72,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               DashboardScreen(),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       case Routes.notificationsScreenRoute:
@@ -80,7 +80,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               NotificationsScreen(),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       case Routes.roomDetailsScreenRoute:
@@ -93,7 +93,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               RoomDetailsScreen(key: typedArgs.key, room: typedArgs.room),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       case Routes.helpDeskScreenRoute:
@@ -101,7 +101,7 @@ class Router extends RouterBase {
           pageBuilder: (context, animation, secondaryAnimation) =>
               HelpDeskScreen(),
           settings: settings,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideTop,
           transitionDuration: const Duration(milliseconds: 400),
         );
       default:
