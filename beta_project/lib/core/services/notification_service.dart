@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:beta_project/core/routes.gr.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,14 +12,8 @@ class NotificationService {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      final jsonData = json.decode(payload);
-      print("Payload from notification => $jsonData");
-      ExtendedNavigator.ofRouter<Router>()
-          .pushNamed(Routes.notificationsScreenRoute);
-    }
-  }
+  Future onSelectNotification(_) async => ExtendedNavigator.ofRouter<Router>()
+      .pushNamed(Routes.notificationsScreenRoute);
 
   void clearAll() async => await flutterLocalNotificationsPlugin.cancelAll();
 

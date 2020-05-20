@@ -1,19 +1,20 @@
 import 'package:beta_project/core/globals.dart';
-import 'package:beta_project/data/models/contact.dart';
+import 'package:beta_project/data/models/member.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-class RecentMember extends StatelessWidget {
-  final Contact person;
+class RecentVisitor extends StatelessWidget {
+  final Visitor person;
 
-  const RecentMember({Key key, this.person}) : super(key: key);
+  const RecentVisitor({Key key, this.person}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return ListTile(
+      isThreeLine: person.entryTime != 0,
       contentPadding: const EdgeInsets.symmetric(horizontal: kSpacingSmall),
       onTap: () {
         // FIXME: Add contact functionality
@@ -23,6 +24,7 @@ class RecentMember extends StatelessWidget {
       },
       title: Text(person.name),
       subtitle: Text(person.relation),
+      key: Key(person.name),
       trailing: IconButton(
         icon: Icon(EvaIcons.phoneOutline),
         onPressed: () {

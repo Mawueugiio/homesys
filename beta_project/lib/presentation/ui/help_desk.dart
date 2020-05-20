@@ -1,4 +1,5 @@
 import 'package:beta_project/core/globals.dart';
+import 'package:beta_project/core/mock.dart';
 import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/contact.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';

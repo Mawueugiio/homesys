@@ -1,6 +1,5 @@
 import 'package:beta_project/core/globals.dart';
-import 'package:beta_project/core/injection/service_locator.dart';
-import 'package:beta_project/core/services/notification_service.dart';
+import 'package:beta_project/core/mock.dart';
 import 'package:beta_project/presentation/widget/recents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -24,10 +23,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     var size = MediaQuery.of(context).size;
     _kWidth = size.width;
     _kHeight = size.height;
-
-    sl
-        .get<NotificationService>()
-        .show(title: "Hello", message: lorem_long);
   }
 
   @override
@@ -56,7 +51,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   SizedBox(height: kSpacingSmall),
                   Text(
-                    "Alerts on who is entering your premises",
+                    "Shows alerts on who is entering your premises",
                     style: _themeData.textTheme.subtitle2,
                     textAlign: TextAlign.center,
                   ),
@@ -96,18 +91,27 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 SizedBox(height: kSpacingNormal),
                             padding: const EdgeInsets.all(kSpacingNone),
                             physics: BouncingScrollPhysics(),
-                            itemCount: kContacts.length,
+                            itemCount: kVisitors.length,
                             itemBuilder: (_, int index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: kAnimationDuration,
-                                child: ScaleAnimation(
-                                  child: FadeInAnimation(
-                                    child:
-                                        RecentMember(person: kContacts[index]),
-                                  ),
-                                ),
-                              );
+                              return kVisitors.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                        'No new notifications',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    )
+                                  : AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: kAnimationDuration,
+                                      child: ScaleAnimation(
+                                        child: FadeInAnimation(
+                                          child: RecentVisitor(
+                                              person: kVisitors[index]),
+                                        ),
+                                      ),
+                                    );
                             }),
                       ),
                     ),

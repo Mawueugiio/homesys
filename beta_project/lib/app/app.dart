@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/guards.dart';
+import 'package:beta_project/core/injection/service_locator.dart';
 import 'package:beta_project/core/routes.gr.dart';
+import 'package:beta_project/core/services/notification_service.dart';
 import 'package:beta_project/core/themes/theme.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -17,6 +19,12 @@ class HomeSysApp extends StatefulWidget {
 
 class _HomeSysAppState extends State<HomeSysApp> {
   FirebaseAnalytics analytics = FirebaseAnalytics();
+
+  @override
+  void dispose() {
+    sl.get<NotificationService>()?.clearAll();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

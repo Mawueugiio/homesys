@@ -1,7 +1,13 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/core/injection/service_locator.dart';
+import 'package:beta_project/core/mock.dart';
 import 'package:beta_project/core/routes.gr.dart';
+import 'package:beta_project/core/services/notification_service.dart';
+import 'package:beta_project/data/models/member.dart';
 import 'package:beta_project/data/models/user.dart';
 import 'package:beta_project/domain/entities/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
@@ -13,6 +19,7 @@ import 'package:beta_project/presentation/widget/room_item.dart';
 import 'package:beta_project/presentation/widget/scenario_item.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -31,6 +38,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int _currentSceneIndex = 0;
   bool _areDevicesOff = false;
 
+  Timer _currentTimer;
+
+  @override
+  void dispose() {
+    _currentTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -43,6 +58,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     _prefsBloc = BlocProvider.of<PrefsBloc>(context);
     _prefsBloc.add(GetCurrentUserEvent());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (!kReleaseMode) _simulateMemberEntryMode();
+  }
+
+  /// Simulates the entry of a randomly selected member every 1 minute
+  /// This method only runs in debug mode & will not affect the released version of the app
+  void _simulateMemberEntryMode() async {
+    // FIXME: You can change the timer duration here to suit your demonstration
+    // TODO: Fetch users from database
+    Timer.periodic(Duration(minutes: 5), (timer) {
+      _currentTimer = timer;
+      final contact = kContacts[Random().nextInt(kContacts.length)];
+      sl.get<NotificationService>().show(
+            title: "${contact.name} is at the door!",
+            message: "Tap here for more actions",
+            payload: contact.toJson().toString(),
+          );
+      final visitor = Visitor(
+        contact.name,
+        contact.token,
+        contact.pin,
+        contact.avatar,
+        contact.lastSeen,
+        contact.relation,
+        DateTime.now().millisecondsSinceEpoch,
+      );
+      kVisitors.add(visitor);
+    });
   }
 
   @override
@@ -396,7 +443,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Material(
                 child: InkWell(
                   onTap: () => Navigator.pop(context, 'This is the result.'),
-                  child: Padding(
+                  child: Container(
                     padding: const EdgeInsets.all(16),
                     child: Text(
                       'This is the content of the sheet',
