@@ -3,6 +3,7 @@ import 'package:beta_project/core/mock.dart';
 import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/contact.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -32,7 +33,11 @@ class _HelpDeskScreenState extends State<HelpDeskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(EvaIcons.arrowLeftOutline, color: kWhite),
+            onPressed: () => Navigator.pop(context)),
+      ),
       extendBody: true,
       extendBodyBehindAppBar: true,
       body: Container(
@@ -43,20 +48,20 @@ class _HelpDeskScreenState extends State<HelpDeskScreen> {
           children: [
             Container(
               height: _kHeight * 0.35,
-              color: _themeData.scaffoldBackgroundColor,
+              color: _themeData.accentColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     "Help desk",
-                    style: _themeData.textTheme.headline4,
+                    style: _themeData.textTheme.headline4.copyWith(color: kWhite),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: kSpacingSmall),
                   Text(
                     "Find all your emergencey contacts",
-                    style: _themeData.textTheme.subtitle2,
+                    style: _themeData.textTheme.subtitle2.copyWith(color: kWhite),
                     textAlign: TextAlign.center,
                   ),
                 ],

@@ -15,6 +15,8 @@ Visitor _$VisitorFromJson(Map<String, dynamic> json) {
     json['lastSeen'] as int,
     json['relation'] as String,
     json['entryTime'] as int,
+    isAllowed: json['isAllowed'] as bool,
+    isWaiting: json['isWaiting'] as bool,
   );
 }
 
@@ -26,4 +28,6 @@ Map<String, dynamic> _$VisitorToJson(Visitor instance) => <String, dynamic>{
       'lastSeen': instance.lastSeen,
       'relation': instance.relation,
       'entryTime': instance.entryTime,
+      'isAllowed': instance.isAllowed,
+      'isWaiting': instance.isWaiting,
     };

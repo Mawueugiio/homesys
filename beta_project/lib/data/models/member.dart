@@ -7,10 +7,20 @@ part 'member.g.dart';
 @JsonSerializable()
 class Visitor extends Contact {
   final int entryTime;
+  bool isAllowed;
+  bool isWaiting;
 
-  const Visitor(String name, String token, String pin, String avatar,
-      int lastSeen, String relation, this.entryTime)
-      : super(name, token, pin, avatar, lastSeen, relation);
+  Visitor(
+    String name,
+    String token,
+    String pin,
+    String avatar,
+    int lastSeen,
+    String relation,
+    this.entryTime, {
+    this.isAllowed = false,
+    this.isWaiting = true,
+  }) : super(name, token, pin, avatar, lastSeen, relation);
 
   factory Visitor.fromJson(Map<String, dynamic> json) =>
       _$VisitorFromJson(json);

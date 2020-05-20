@@ -1,4 +1,3 @@
-import 'package:beta_project/core/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -33,10 +32,6 @@ class TextFormInput extends TextFormField {
       labelText: labelText,
       hintText: hintText,
       helperText: helperText,
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(kSpacingXLarge),
-          gapPadding: 2
-      ),
       filled: true,
       fillColor: Colors.white12,
       suffixIcon: suffixIcon,

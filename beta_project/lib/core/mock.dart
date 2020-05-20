@@ -32,7 +32,7 @@ final List<Device> kDevices = [
 
 /// Visitors at the door
 final kVisitors = <Visitor>[];
-const List<Contact> kContacts = [
+final kContacts = <Contact>[
   const Contact(
       "Sarah Doe",
       "",

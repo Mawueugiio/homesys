@@ -7,12 +7,14 @@ import 'package:beta_project/core/injection/service_locator.dart';
 import 'package:beta_project/core/mock.dart';
 import 'package:beta_project/core/routes.gr.dart';
 import 'package:beta_project/core/services/notification_service.dart';
+import 'package:beta_project/data/models/contact.dart';
 import 'package:beta_project/data/models/member.dart';
 import 'package:beta_project/data/models/user.dart';
 import 'package:beta_project/domain/entities/user.dart';
 import 'package:beta_project/presentation/bloc/global_state.dart';
 import 'package:beta_project/presentation/bloc/prefs/prefs_bloc.dart';
 import 'package:beta_project/presentation/widget/buttons.dart';
+import 'package:beta_project/presentation/widget/fields.dart';
 import 'package:beta_project/presentation/widget/loaders.dart';
 import 'package:beta_project/presentation/widget/power_usage.dart';
 import 'package:beta_project/presentation/widget/room_item.dart';
@@ -37,12 +39,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
   PrefsBloc _prefsBloc;
   int _currentSceneIndex = 0;
   bool _areDevicesOff = false;
-
   Timer _currentTimer;
+
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _relationController = TextEditingController();
+  Contact _newMember;
 
   @override
   void dispose() {
     _currentTimer?.cancel();
+    _formKey?.currentState?.dispose();
+    _nameController?.dispose();
+    _relationController?.dispose();
     super.dispose();
   }
 
@@ -66,12 +75,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (!kReleaseMode) _simulateMemberEntryMode();
   }
 
-  /// Simulates the entry of a randomly selected member every 1 minute
+  /// Simulates the entry of a randomly selected member every 2 minutes
   /// This method only runs in debug mode & will not affect the released version of the app
   void _simulateMemberEntryMode() async {
     // FIXME: You can change the timer duration here to suit your demonstration
     // TODO: Fetch users from database
-    Timer.periodic(Duration(minutes: 5), (timer) {
+    Timer.periodic(Duration(minutes: 2), (timer) {
       _currentTimer = timer;
       final contact = kContacts[Random().nextInt(kContacts.length)];
       sl.get<NotificationService>().show(
@@ -427,35 +436,95 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void addNewMember() async {
-    await showSlidingBottomSheet(context, builder: (context) {
+    await showSlidingBottomSheet(context, builder: (ctx) {
       return SlidingSheetDialog(
         elevation: 8,
         cornerRadius: 16,
         snapSpec: const SnapSpec(
           snap: true,
-          snappings: [0.4, 0.7, 1.0],
+          snappings: [0.45, 0.7, 1.0],
           positioning: SnapPositioning.relativeToAvailableSpace,
         ),
         builder: (context, state) {
-          return Container(
-            height: 400,
-            child: Center(
-              child: Material(
-                child: InkWell(
-                  onTap: () => Navigator.pop(context, 'This is the result.'),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      'This is the content of the sheet',
-                      style: Theme.of(context).textTheme.bodyText1,
+          return Material(
+            child: Container(
+              width: _kWidth,
+              padding: const EdgeInsets.all(kSpacingXLarge),
+              child: Column(
+                children: [
+                  Text(
+                    'Add a new member',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(height: kSpacingSmall),
+                  Text(
+                    'This page allows you to add members of your family to whom you can allow or deny access to',
+                    style: Theme.of(context).textTheme.subtitle2,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: kSpacingXLarge),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormInput(
+                          labelText: "Full Name",
+                          controller: _nameController,
+                          maxLines: 1,
+                          validator: (v) =>
+                              v.isEmpty ? "Enter full name" : null,
+                          keyboardType: TextInputType.text,
+                        ),
+                        TextFormInput(
+                          labelText: "Relationship",
+                          controller: _relationController,
+                          maxLines: 1,
+                          validator: (v) =>
+                              v.isEmpty ? "Enter relationship" : null,
+                          keyboardType: TextInputType.text,
+                          onFieldSubmitted: (_) => _saveData(ctx),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  SizedBox(height: kSpacingXLarge),
+                  ButtonPrimary(
+                      text: "Save",
+                      width: _kWidth * 0.7,
+                      onPressed: () => _saveData(ctx),
+                      themeData: _themeData),
+                  SizedBox(height: kSpacingNormal),
+                  ButtonClear(
+                      text: "Cancel",
+                      onPressed: () => Navigator.pop(context),
+                      themeData: _themeData),
+                ],
               ),
             ),
           );
         },
       );
     }); // This is the result.
+  }
+
+  void _saveData(BuildContext ctx) {
+    final pin = Random().nextInt(9999).toString();
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      _newMember = Contact(
+        _nameController.text?.trim(),
+        "",
+        pin,
+        kDefaultAvatar,
+        DateTime.now().millisecondsSinceEpoch,
+        _relationController.text?.trim(),
+      );
+      print(_newMember?.pin);
+      kContacts.add(_newMember);
+      // TODO: Send member details to database
+      Navigator.pop(ctx);
+    }
   }
 }

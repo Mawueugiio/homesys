@@ -35,7 +35,7 @@ class ButtonOutlined extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            text.toUpperCase(),
+            text,
             style: themeData.textTheme.button.copyWith(
               color: isDarkMode ? Colors.white : themeData.primaryColor,
             ),
