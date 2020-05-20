@@ -29,6 +29,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   double _kHeight, _kWidth;
   PrefsBloc _prefsBloc;
   int _currentSceneIndex = 0;
+  bool _areDevicesOff = false;
 
   @override
   void didChangeDependencies() {
@@ -98,6 +99,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icon(Feather.bell, color: kWhite),
             onPressed: () => ExtendedNavigator.of(context)
                 .pushNamed(Routes.notificationsScreenRoute),
+          ),
+          IconButton(
+            icon: Icon(Entypo.warning, color: kWhite),
+            onPressed: () => ExtendedNavigator.of(context)
+                .pushNamed(Routes.helpDeskScreenRoute),
           ),
         ],
       ),
@@ -326,9 +332,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 SizedBox(
                                                     height: kSpacingXLarge),
                                                 ButtonPrimary(
-                                                  text: "Turn off all devices",
+                                                  text: _areDevicesOff
+                                                      ? "Turn on devices"
+                                                      : "Turn off all devices",
                                                   onPressed: () {
-                                                    // TODO: Turn off all devices
+                                                    setState(() {
+                                                      _areDevicesOff =
+                                                          !_areDevicesOff;
+                                                    });
                                                   },
                                                   width: _kWidth * 0.7,
                                                   themeData: _themeData,

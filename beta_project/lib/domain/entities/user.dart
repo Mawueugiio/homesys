@@ -6,5 +6,5 @@ abstract class UserEntity {
   final String avatar;
   final int lastSeen;
 
-  UserEntity(this.name, this.token, this.pin, this.avatar, this.lastSeen);
+  const UserEntity(this.name, this.token, this.pin, this.avatar, this.lastSeen);
 }

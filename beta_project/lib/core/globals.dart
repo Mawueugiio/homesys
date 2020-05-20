@@ -1,3 +1,4 @@
+import 'package:beta_project/data/models/contact.dart';
 import 'package:beta_project/data/models/device.dart';
 import 'package:beta_project/data/models/room.dart';
 import 'package:beta_project/data/models/scene.dart';
@@ -121,6 +122,36 @@ const List<Device> kDevices = [
   const Device("AC", FlutterIcons.snowflake_faw5s, true, metadata: "23%"),
   const Device("WiFi", EvaIcons.wifiOutline, true, metadata: "On"),
   const Device("Smart TV", FlutterIcons.tv_faw5s, false, metadata: "Off"),
+];
+const List<Contact> kContacts = [
+  const Contact(
+      "Sarah Doe",
+      "",
+      "123",
+      "https://images.unsplash.com/photo-1574981370294-edbbf06bb159?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      1234,
+      "Wife"),
+  const Contact(
+      "Samuel Bradley",
+      "",
+      "123",
+      "https://images.unsplash.com/photo-1504593811423-6dd665756598?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      1234,
+      "Father"),
+  const Contact(
+      "Esther Mensah",
+      "",
+      "123",
+      "https://images.unsplash.com/flagged/photo-1571837360114-edf5dba7b1dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      1234,
+      "Cousin"),
+  const Contact(
+      "Emmanuel Ashley",
+      "",
+      "123",
+      "https://images.unsplash.com/photo-1526667900883-4a817696e7e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      1234,
+      "Brother"),
 ];
 
 //const List<Scene> kScenes = [];

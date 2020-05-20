@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:beta_project/presentation/ui/dashboard.dart';
+import 'package:beta_project/presentation/ui/help_desk.dart';
 import 'package:beta_project/presentation/ui/login.dart';
 import 'package:beta_project/presentation/ui/notifications.dart';
 import 'package:beta_project/presentation/ui/room_details.dart';
@@ -25,4 +26,6 @@ class $Router {
   NotificationsScreen notificationsScreenRoute;
   @GuardedBy([AuthGuard])
   RoomDetailsScreen roomDetailsScreenRoute;
+  @GuardedBy([AuthGuard])
+  HelpDeskScreen helpDeskScreenRoute;
 }

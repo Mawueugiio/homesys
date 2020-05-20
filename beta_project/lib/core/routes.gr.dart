@@ -14,6 +14,7 @@ import 'package:beta_project/core/guards.dart';
 import 'package:beta_project/presentation/ui/notifications.dart';
 import 'package:beta_project/presentation/ui/room_details.dart';
 import 'package:beta_project/data/models/room.dart';
+import 'package:beta_project/presentation/ui/help_desk.dart';
 
 abstract class Routes {
   static const welcomeScreenRoute = '/';
@@ -21,12 +22,14 @@ abstract class Routes {
   static const dashboardScreenRoute = '/dashboard-screen-route';
   static const notificationsScreenRoute = '/notifications-screen-route';
   static const roomDetailsScreenRoute = '/room-details-screen-route';
+  static const helpDeskScreenRoute = '/help-desk-screen-route';
   static const all = {
     welcomeScreenRoute,
     loginScreenRoute,
     dashboardScreenRoute,
     notificationsScreenRoute,
     roomDetailsScreenRoute,
+    helpDeskScreenRoute,
   };
 }
 
@@ -38,6 +41,7 @@ class Router extends RouterBase {
         Routes.dashboardScreenRoute: [AuthGuard],
         Routes.notificationsScreenRoute: [AuthGuard],
         Routes.roomDetailsScreenRoute: [AuthGuard],
+        Routes.helpDeskScreenRoute: [AuthGuard],
       };
   @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
@@ -88,6 +92,14 @@ class Router extends RouterBase {
         return PageRouteBuilder<dynamic>(
           pageBuilder: (context, animation, secondaryAnimation) =>
               RoomDetailsScreen(key: typedArgs.key, room: typedArgs.room),
+          settings: settings,
+          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionDuration: const Duration(milliseconds: 400),
+        );
+      case Routes.helpDeskScreenRoute:
+        return PageRouteBuilder<dynamic>(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              HelpDeskScreen(),
           settings: settings,
           transitionsBuilder: TransitionsBuilders.slideRightWithFade,
           transitionDuration: const Duration(milliseconds: 400),
