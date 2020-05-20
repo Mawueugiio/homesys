@@ -1,4 +1,5 @@
 import 'package:beta_project/core/globals.dart';
+import 'package:beta_project/presentation/widget/buttons.dart';
 import 'package:beta_project/presentation/widget/contact.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:flutter/material.dart';
@@ -98,9 +99,10 @@ class _HelpDeskScreenState extends State<HelpDeskScreen> {
                         )
                       ],
                     ),
-                    Expanded(
+                    Flexible(
                       child: AnimationLimiter(
                         child: ListView.separated(
+                          physics: BouncingScrollPhysics(),
                           padding: const EdgeInsets.all(kSpacingNone),
                           itemCount: kContacts.length,
                           separatorBuilder: (_, __) =>
@@ -119,6 +121,146 @@ class _HelpDeskScreenState extends State<HelpDeskScreen> {
                             );
                           },
                         ),
+                      ),
+                    ),
+                    SizedBox(height: kSpacingLarge),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Services",
+                          style: _themeData.textTheme.caption.copyWith(
+                            fontSize: 18,
+                          ),
+                        ),
+                        SizedBox.shrink(),
+                      ],
+                    ),
+                    Flexible(
+                      child: ListView(
+                        padding: const EdgeInsets.all(kSpacingNone),
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          ListTile(
+                            title: Text("Ambulance"),
+                            subtitle: Text("Get access to an ambulance"),
+                            leading: Container(
+                              height: kAvatarSize,
+                              width: kAvatarSize,
+                              alignment: Alignment.center,
+                              child: Icon(FlutterIcons.ambulance_faw),
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text("Ambulance"),
+                                  content: Text(lorem_short),
+                                  actions: [
+                                    ButtonClear(
+                                        text: "Dismiss",
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        themeData: _themeData),
+                                    ButtonClear(
+                                        text: "Call now",
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        themeData: _themeData),
+                                  ],
+                                ),
+                              );
+                            },
+                            contentPadding: const EdgeInsets.all(kSpacingSmall),
+                          ),
+                          ListTile(
+                            title: Text("Police"),
+                            subtitle: Text("Get access to a police officer"),
+                            leading: Container(
+                              height: kAvatarSize,
+                              width: kAvatarSize,
+                              alignment: Alignment.center,
+                              child: Icon(Feather.users),
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text("Police"),
+                                  content: Text(lorem_short),
+                                  actions: [
+                                    ButtonClear(
+                                        text: "Dismiss",
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        themeData: _themeData),
+                                    ButtonClear(
+                                        text: "Call now",
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        themeData: _themeData),
+                                  ],
+                                ),
+                              );
+                            },
+                            contentPadding: const EdgeInsets.all(kSpacingSmall),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: kSpacingLarge),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Actions",
+                          style: _themeData.textTheme.caption.copyWith(
+                            fontSize: 18,
+                          ),
+                        ),
+                        SizedBox.shrink(),
+                      ],
+                    ),
+                    Flexible(
+                      child: ListView(
+                        padding: const EdgeInsets.all(kSpacingNone),
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          ListTile(
+                            title: Text("Change key"),
+                            leading: Container(
+                              height: kAvatarSize,
+                              width: kAvatarSize,
+                              alignment: Alignment.center,
+                              child: Icon(AntDesign.lock),
+                            ),
+                            onTap: () {
+                              _scaffoldKey.currentState
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(
+                                  ErrorSnackBar("Action not supported"),
+                                );
+                            },
+                            contentPadding: const EdgeInsets.all(kSpacingSmall),
+                          ),
+                          ListTile(
+                            title: Text("Turn off all devices"),
+                            leading: Container(
+                              height: kAvatarSize,
+                              width: kAvatarSize,
+                              alignment: Alignment.center,
+                              child: Icon(Feather.tv),
+                            ),
+                            onTap: () {
+                              _scaffoldKey.currentState
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(
+                                  ErrorSnackBar("Action not supported"),
+                                );
+                            },
+                            contentPadding: const EdgeInsets.all(kSpacingSmall),
+                          ),
+                        ],
                       ),
                     ),
                   ],

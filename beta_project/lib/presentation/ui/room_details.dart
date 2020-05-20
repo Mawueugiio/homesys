@@ -1,5 +1,6 @@
 import 'package:beta_project/core/globals.dart';
 import 'package:beta_project/data/models/room.dart';
+import 'package:beta_project/presentation/widget/device_tile.dart';
 import 'package:beta_project/presentation/widget/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -71,6 +72,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 width: _kWidth,
                 decoration:
                     kCurvedBackground.copyWith(color: _themeData.disabledColor),
+                padding: EdgeInsets.symmetric(
+                  horizontal: kSpacingXLarge,
+                  vertical: kSpacingLarge,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,9 +102,11 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                       ],
                     ),
                     SizedBox(height: kSpacingXLarge),
-                    Expanded(
+                    Flexible(
                       child: AnimationLimiter(
                         child: GridView.count(
+                          padding: const EdgeInsets.all(kSpacingNone),
+                          physics: BouncingScrollPhysics(),
                           crossAxisCount: 2,
                           children: List.generate(
                             widget.room.devices,
@@ -110,7 +117,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 columnCount: 2,
                                 child: ScaleAnimation(
                                   child: FadeInAnimation(
-                                    child: Text("Hello"),
+                                    child: DeviceTile(
+                                      device: kDevices[index],
+                                      onPress: () {},
+                                    ),
                                   ),
                                 ),
                               );

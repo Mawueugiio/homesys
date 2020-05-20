@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:beta_project/data/models/contact.dart';
 import 'package:beta_project/data/models/device.dart';
 import 'package:beta_project/data/models/room.dart';
@@ -7,6 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+/// Placeholder
+const String lorem_short =
+    "Augue neque gravida in fermentum et sollicitudin. In mollis nunc sed id semper risus in.";
+const String lorem_long =
+    "Augue neque gravida in fermentum et sollicitudin. In mollis nunc sed id semper risus in. Ac turpis egestas integer eget aliquet nibh. Vel turpis nunc eget lorem dolor sed.";
 
 /// Time Utils
 String formatTimestampAgo(int timestamp) =>
@@ -117,11 +125,14 @@ const List<Room> kRooms = [
   const Room("Bedroom", "assets/br/br.webp", 3),
   const Room("Kitchen", "assets/kt/kt.webp", 2),
 ];
-const List<Device> kDevices = [
-  const Device("Light", FlutterIcons.oil_lamp_mco, true, metadata: "60%"),
-  const Device("AC", FlutterIcons.snowflake_faw5s, true, metadata: "23%"),
-  const Device("WiFi", EvaIcons.wifiOutline, true, metadata: "On"),
-  const Device("Smart TV", FlutterIcons.tv_faw5s, false, metadata: "Off"),
+final List<Device> kDevices = [
+  Device("Light", FlutterIcons.oil_lamp_mco, Random().nextBool(),
+      metadata: "60%"),
+  Device("AC", FlutterIcons.snowflake_faw5s, Random().nextBool(),
+      metadata: "23%"),
+  Device("WiFi", EvaIcons.wifiOutline, Random().nextBool(), metadata: "On"),
+  Device("Smart TV", FlutterIcons.tv_faw5s, Random().nextBool(),
+      metadata: "Off"),
 ];
 const List<Contact> kContacts = [
   const Contact(
